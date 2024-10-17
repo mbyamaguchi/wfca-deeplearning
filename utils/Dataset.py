@@ -11,7 +11,8 @@ import torchvision.transforms as transforms
 
 class WFCaTiffDataset(Dataset):
     """PyTorch Dataset に準じた TiffFile 用データセット"""
-    def __init__(self, path: str, transform=None, train: bool=True) -> None:
+
+    def __init__(self, path: str, transform=None, train: bool = True) -> None:
         self.path = path
         self.transform = transform
         self.train = train
@@ -20,8 +21,8 @@ class WFCaTiffDataset(Dataset):
         self.data = []
 
         for file in tqdm(self.files):
-            filename, ext = file.split('.')
-            if ext == 'tif':
+            filename, ext = file.split(".")
+            if ext == "tif":
                 with TiffFile(f"{self.path}/{file}") as tif:
                     self.append(tif.asarray())
 
@@ -33,5 +34,5 @@ class WFCaTiffDataset(Dataset):
 
         if self.transform:
             out_data = self.transform(out_data)
-        
+
         return out_data
